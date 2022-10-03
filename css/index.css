@@ -1,0 +1,240 @@
+main {
+    width: 315px;
+    height: calc(45px*6);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 105px auto auto;
+}
+
+.big,
+.small {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    /* overflow: hidden; */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+
+}
+
+.big {
+    width: calc(45px*7);
+    height: calc(45px*6);
+}
+
+.small {
+    width: calc(45px*6);
+    height: calc(45px*5);
+}
+
+.itemBox {
+    width: 45px;
+    height: 45px;
+    box-sizing: border-box;
+    font-size: 30px;
+    text-align: center;
+    line-height: 35px;
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    /* 看盒子边框 */
+    /* border: 1px solid tan; */
+}
+
+.big .itemBox,
+.small .itemBox {
+    opacity: 0;
+    transform: translateY(-60px);
+    transition: all .5s linear;
+}
+
+.item {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgba(47, 54, 10, .6);
+    background-color: #f5ffcd;
+    box-shadow: 0 -5px 2px 0px #72a313 inset;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.fade {
+    position: relative;
+}
+
+.fade::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(147, 153, 123, 0.7);
+}
+
+.left,
+.right {
+    position: absolute;
+    width: calc(11*5px + 45px);
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -10px;
+}
+
+.left {
+    right: calc(11*5px + 45px + 45px);
+    left: 0;
+}
+
+.right {
+    left: calc(11*5px + 45px + 45px);
+    right: 0;
+}
+
+.left .itemBox,
+.right .itemBox {
+    position: absolute;
+    top: 0;
+    transition: all 1s linear;
+}
+
+.left .itemBox {
+    left: 0;
+}
+
+.right .itemBox {
+    right: 0;
+}
+
+.temp {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -108px;
+    display: flex;
+    justify-content: space-around;
+    width: calc(45px*7);
+}
+
+/* -> 以下底部 结果栏 和 两个按钮 */
+
+footer {
+    background-color: red;
+    width: calc(45px*7);
+    position: absolute;
+    bottom: 75px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #c2812d;
+    padding: 10px 10px 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 1px #6b8f4a;
+    z-index: 50;
+}
+
+footer .content {
+    width: calc(45px*7);
+    height: 45px;
+    background-color: #965b1b;
+    box-shadow: 0 5px 5px 5px #7f4e16 inset;
+    border-radius: 5px;
+    display: flex;
+}
+
+footer .config {
+    margin-top: 5px;
+    height: 35px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.config button {
+    width: max-content;
+    padding: 0;
+    background: none;
+    border: 0;
+    outline: none;
+    margin-left: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #ddd;
+    box-sizing: content-box;
+    padding: 2px 6px;
+    transition: all .3s linear;
+    box-shadow: 2px 2px 5px 1px #965b1b;
+}
+
+.config button:active {
+    transform: scale(1.1);
+}
+
+.config button span {
+    white-space: nowrap;
+    display: block;
+    margin-left: 5px;
+}
+
+.config .music {
+    background-color: #3f93b5;
+}
+
+.config .lastOne {
+    background-color: #009688;
+}
+
+.config .lastAll {
+    background-color: #236b52;
+}
+
+.config button svg {
+    font-size: 30px;
+}
+
+
+/* -> 以下播放按钮 动画 */
+@keyframes btnDJ {
+    30% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+/* -> 草叶 */
+aside img {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    /* animation: grassDj .5s linear 0s infinite; */
+}
+
+@keyframes grassDj {
+    30% {
+        transform: scaleY(1);
+    }
+
+    100% {
+        transform: scaleY(1.4);
+    }
+}

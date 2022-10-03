@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食了个食</title>
+
+    <!-- - 引入图标 -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- - 重置默认样式 和 预设字体图标样式 -->
+    <link rel="stylesheet" href="./css/base.css">
+
+    <!-- - 页面主要css -->
+    <link rel="stylesheet" href="./css/index.css">
+
+</head>
+
+<body>
+
+    <!-- - 版心 -->
+    <div class="wrap">
+
+        <!-- - 引入音频 -->
+        <audio loop autoplay>
+            <source src="./music/bgm.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- - 头部 -->
+        <header>
+
+        </header>
+
+        <!-- - 导航栏 -->
+        <nav>
+
+        </nav>
+
+        <!-- - 卡片 -->
+        <main>
+
+            <!-- - 向上层叠 -->
+            <div class="box"></div>
+
+            <!-- - 向右层叠 -->
+            <div class="left">
+
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+
+            </div>
+
+            <!-- - 向左层叠 -->
+            <div class="right">
+
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+
+            </div>
+
+            <!-- - 复活区 -->
+            <div class="temp"></div>
+
+            <!-- - 草丛 -->
+            <aside></aside>
+
+        </main>
+
+        <!-- - 选中卡片栏 -->
+        <footer>
+
+            <div class="content">
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+                <div class="itemBox"></div>
+            </div>
+
+            <div class="config">
+                <button class="lastAll">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#id-zengjiatuceng"></use>
+                    </svg>
+                    <span>暂缓(7)</span>
+                </button>
+                <button class="lastOne">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#id-withdraw"></use>
+                    </svg>
+                    <span>撤回(0)</span>
+                </button>
+                <button class="music">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#id-bofang"></use>
+                    </svg>
+                    <span>播放</span>
+                </button>
+            </div>
+
+        </footer>
+
+    </div>
+
+    <!-- - 字体图标库js 阿里巴巴 -->
+    <script src="./iconfont/iconfont.js"></script>
+
+    <!-- - jq文件 -->
+    <script src="./js/jquery-3.6.1.min.js"></script>
+
+    <!-- - 数组数据js文件 -->
+    <script src="./js/card-list.js"></script>
+
+    <!-- - 封装方法js文件 -->
+    <script src="./js/fun.js"></script>
+
+    <script>
+
+        // 作用：防止多频率点击
+        var clickAble = false;
+
+        // 调用随机草丛的函数
+        readerGrass();
+
+        // 默认自动调用随机函数 生成数据
+        random({ len: 120, difficulty: 25, });
+
+        // 打开页面默认渲染一次
+        readerAll();
+
+        // 绑定卡片点击事件
+        $("main").on("click", ".item", function (e) {
+
+            // 阻止冒泡
+            e.stopPropagation();
+
+            if (
+                !$(this).hasClass("fade") && // 显示出来的才可以点击
+                clickAble && // 作用：防止多频率点击
+                list.res.length < $(".content").children().length // 当有位置放才可以执行
+            ) {
+
+                // 设置不可多频率点击
+                clickAble = false;
+
+                // 先动画再执行回调
+                $(this).css("z-index", 9999).animate({
+                    top: $(".content .itemBox").eq(list.res.length).offset().top - $(this).offset().top,
+                    left: $(".content .itemBox").eq(list.res.length).offset().left - $(this).offset().left
+                }, () => {
+
+                    // 调用更新数据函数
+                    updataFun(this);
+
+                    // 调用渲染按钮的函数
+                    readerBtn();
+                });
+
+
+            }
+
+        })
+
+        // 复活按钮 和 撤回按钮 和播放按钮
+        $(".lastAll").click(function () { if (clickAble) lastAllFun(); })
+            .next().click(function () { if (clickAble) backstep(); })
+            .next().click(function () { if (clickAble) palyPause(this); })
+
+        // 测试
+        function num() {
+            let obj = {}
+            $(".item").each(function (i, el) {
+                let id = $(el).find("use").attr("xlink:href");
+                if (id in obj) {
+                    obj[id] += 1;
+                } else {
+                    obj[id] = 1;
+                }
+            })
+            return obj;
+        }
+
+    </script>
+
+
+</body>
+
+</html>

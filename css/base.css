@@ -1,0 +1,27 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.wrap {
+    background-color: tan;
+    min-width: 320px;
+    max-width: 750px;
+    min-height: 667px;
+    margin: 0 auto;
+    background-color: #c3fe8b;
+    position: relative;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
